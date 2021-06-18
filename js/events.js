@@ -22,6 +22,18 @@ var lapSplits = {
 // create my event listeners when the page is ready
 window.addEventListener('DOMContentLoaded', function() {
 
+	// ask the user for their name, and greet them in our h1
+	var username;
+	if ( localStorage.getItem('UserName') ) {
+		username = localStorage.getItem('UserName');
+	} else {
+		username = prompt('What is your name, friend?');
+		localStorage.setItem('UserName', username);
+	}
+	if ( username ) {
+		document.getElementById('greeting').innerHTML = 'Hello Again, ' + username;
+	}
+
 	// if we have saved lap information, lets load that into our
 	// lap split times
 	if ( localStorage.getItem('storedLaps') ) {
@@ -32,32 +44,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		// turn the JSON string into an object
 		var storedLapsObj = JSON.parse(storedLapsJsonString);
 
-		document.getElementById('lapTimeSplits').innerHTML = '';
-		console.time('innerHTML');
-		for ( var key in storedLapsObj ) {
-			// key == trial-# 
-			// storedLapsObj[ key ] == array 
-			//console.log(key);
-
-			var htmlOutput = '<ol id="' + key + '">';
-
-			// loop through the times array, and create list items for each time
-			var times = storedLapsObj[ key ];
-			//console.log(times);
-
-			times.forEach(function(time) {
-				htmlOutput = htmlOutput + '<li>Lap: ' + time + '</li>';
-			});
-			
-			htmlOutput = htmlOutput + '</ol>';
-
-			// and put them in the div #lapTimeSplits
-			//console.log(htmlOutput);
-			document.getElementById('lapTimeSplits').innerHTML = document.getElementById('lapTimeSplits').innerHTML + htmlOutput;
-		}
-		console.timeEnd('innerHTML');
-
-		document.getElementById('lapTimeSplits').innerHTML = '';
+		// best performing
 		// loop through all of the trials, and turn them into ordered lists
 		console.time('createElement');
 		for ( var key in storedLapsObj ) {
@@ -84,34 +71,60 @@ window.addEventListener('DOMContentLoaded', function() {
 		}
 		console.timeEnd('createElement');
 
-		document.getElementById('lapTimeSplits').innerHTML = '';
-		// loop through all of the trials, and turn them into ordered lists
-		console.time('createElementInefficiently');
-		for ( var key in storedLapsObj ) {
-			// key == trial-# 
-			// storedLapsObj[ key ] == array 
-			//console.log(key);
+		// worst performing
+		// console.time('innerHTML'); 
+		// for ( var key in storedLapsObj ) {
+		// 	// key == trial-# 
+		// 	// storedLapsObj[ key ] == array 
+		// 	//console.log(key);
 
-			var ol = document.createElement('ol');
-			ol.setAttribute('id', key);
+		// 	var htmlOutput = '<ol id="' + key + '">';
 
-			// and put them in the div #lapTimeSplits
-			document.getElementById('lapTimeSplits').appendChild(ol);
+		// 	// loop through the times array, and create list items for each time
+		// 	var times = storedLapsObj[ key ];
+		// 	//console.log(times);
 
-			// loop through the times array, and create list items for each time
-			var times = storedLapsObj[ key ];
-			//console.log(times);
-			times.forEach(function(time) {
-				var li = document.createElement('li');
-				li.innerText = 'Lap: ' + time;
-
-				// add the li to our new ordered list
-				document.getElementById(key).appendChild(li);
-			});
+		// 	times.forEach(function(time) {
+		// 		htmlOutput = htmlOutput + '<li>Lap: ' + time + '</li>';
+		// 	});
 			
+		// 	htmlOutput = htmlOutput + '</ol>';
+
+		// 	// and put them in the div #lapTimeSplits
+		// 	//console.log(htmlOutput);
+		// 	document.getElementById('lapTimeSplits').innerHTML = document.getElementById('lapTimeSplits').innerHTML + htmlOutput;
+		// }
+		// console.timeEnd('innerHTML');
+
 		
-		}
-		console.timeEnd('createElementInefficiently');
+
+	
+		// // second best performing
+		// // loop through all of the trials, and turn them into ordered lists
+		// console.time('createElementInefficiently');
+		// for ( var key in storedLapsObj ) {
+		// 	// key == trial-# 
+		// 	// storedLapsObj[ key ] == array 
+		// 	//console.log(key);
+
+		// 	var ol = document.createElement('ol');
+		// 	ol.setAttribute('id', key);
+
+		// 	// and put them in the div #lapTimeSplits
+		// 	document.getElementById('lapTimeSplits').appendChild(ol);
+
+		// 	// loop through the times array, and create list items for each time
+		// 	var times = storedLapsObj[ key ];
+		// 	//console.log(times);
+		// 	times.forEach(function(time) {
+		// 		var li = document.createElement('li');
+		// 		li.innerText = 'Lap: ' + time;
+
+		// 		// add the li to our new ordered list
+		// 		document.getElementById(key).appendChild(li);
+		// 	});
+		// }
+		// console.timeEnd('createElementInefficiently');
 
 
 

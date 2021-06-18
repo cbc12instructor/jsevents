@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<script src="/js/events.js"></script>
+	<style>
+		body {
+			background-color: mediumseagreen;
+			padding: 20px 50px;
+		}
+
+		#lapTimeSplits { 
+			float: right;
+			background-color: #ddd;
+			border: 1px solid #fff;
+		}
+
+		#someDiv {
+			
+		}
+
+		#serverDebug {
+			padding: 10px;
+			color: #fff;
+			background-color: #333;
+			border: 1px solid #fff;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body id="mainPage">
+	
+	<h1>Fun</h1>
+
+	<div id="interval">0</div>
+
+	<div id="lapTimeSplits">
+		<ol id="lapTimes"></ol>
+	</div>
+
+	<div id="someDiv">
+			<h2>X: <span id="x"></span>, Y: <span id="y"></span> -- clicked: <span id="clicked">no</span></h2>
+
+			<button id="startTimer">Start Timer</button>
+			<button id="stopTimer">Stop Timer</button>
+
+			<button id="storeTimes">Store Times</button>
+
+			<div id="serverDebug"></div>
+	</div>
+
+</body>
+</html>
